@@ -13,7 +13,7 @@
     }
 
     function get_job_summary() {
-        return $this->title . ": " . $this->description . ". For more info, contact: " . $this->contact;
+        return $this->title . ": " . $this->description . "<br>" . $this->contact->get_contact();
     }
 
     }

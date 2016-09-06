@@ -1,6 +1,7 @@
 <?php
     require_once __DIR__."/../vendor/autoload.php";
     require_once __DIR__."/../src/job.php";
+    require_once __DIR__."/../src/contact.php";
 
     $app = new Silex\Application();
 
@@ -27,8 +28,16 @@
                             <input id='description' name='description' class='form-control' type='text'>
                         </div>
                         <div class='form-group'>
-                            <label for='contact'>Contact:</label>
-                            <input id='contact' name='contact' class='form-control' type='text'>
+                            <label for='contact_name'>Contact Name:</label>
+                            <input id='contact_name' name='contact_name' class='form-control' type='text'>
+                        </div>
+                        <div class='form-group'>
+                            <label for='contact_company'>Company:</label>
+                            <input id='contact_company' name='contact_company' class='form-control' type='text'>
+                        </div>
+                        <div class='form-group'>
+                            <label for='contact_phone'>Contact Phone:</label>
+                            <input id='contact_phone' name='contact_phone' class='form-control' type='text'>
                         </div>
                         <button type='submit' class='btn btn-success'name='button'>SUBMIT!</button>
                     </form>
@@ -41,11 +50,14 @@
     $app->get("/completed", function() {
         $title = $_GET["title"];
         $description = $_GET["description"];
-        $contact = $_GET["contact"];
+        $contact_name = $_GET["contact_name"];
+        $contact_company = $_GET["contact_company"];
+        $contact_phone = $_GET["contact_phone"];
 
-        $new_job = new Job($title, $description, $contact);
+        $new_contact = new Contact($contact_name, $contact_company, $contact_phone);
+        $new_job = new Job($title, $description, $new_contact);
 
-        return "A new posting has been created " . $new_job->get_job_summary();
+        return "A new posting has been created<br>" . $new_job->get_job_summary();
     });
 
     return $app;
